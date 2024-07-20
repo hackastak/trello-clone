@@ -1,4 +1,5 @@
 import { databases } from "@/appwrite";
+import { TypedColumn, Column, Board } from "@/types";
 
 export const getTodosGroupedByColumn = async () => {
   const data = await databases.listDocuments(
@@ -7,8 +8,6 @@ export const getTodosGroupedByColumn = async () => {
   );
   const todos = data.documents;
 
-  console.log("Todos: ", todos);
-  
   const columns = todos.reduce((acc, todo) => {
     if (!acc.get(todo.status)) {
       acc.set(todo.status, {
@@ -22,10 +21,31 @@ export const getTodosGroupedByColumn = async () => {
       title: todo.title,
       status: todo.status,
       ...(todo.image && { image: JSON.parse(todo.image) }),
-    })
+    });
 
     return acc;
-  }, new Map<TypedColumn, Column>)
+  }, new Map<TypedColumn, Column>());
 
-  console.log("Columns: ", columns);
+  // if either column empty, add them with an empty todos array
+  const columnTypes: TypedColumn[] = ["todo", "inprogress", "done"];
+  for (const columnType of columnTypes) {
+    if (!columns.get(columnType)) {
+      columns.set(columnType, {
+        id: columnType,
+        todos: [],
+      });
+    }
+  }
+
+  const sortedColumns = new Map(
+    Array.from(columns.entries()).sort(
+      (a, b) => columnTypes.indexOf(a[0]) - columnTypes.indexOf(b[0])
+    )
+  );
+
+  const board: Board = {
+    columns: sortedColumns,
+  };
+  
+  return board;
 };
