@@ -16,16 +16,13 @@ const Board = () => {
 
   useEffect(() => {
     getBoard();
-  }, [getBoard]);
-
-  console.log("THIS IS THE BOARD FROM THE BOARD STORE: ", board);
+  }, [getBoard])
 
   const handleOnDragEnd = (result: DropResult) => {
     const { destination, source, type } = result;
     if (!destination) return;
     
     if (type === "column") {
-      console.log("COLUMN DRAGGED");
       const entries = Array.from(board.columns.entries());
       const [removed] = entries.splice(source.index, 1);
       entries.splice(destination.index, 0, removed);
