@@ -1,5 +1,5 @@
 import { databases } from "@/appwrite";
-import { TypedColumn, Column, Board } from "@/types";
+import { TypedColumn, Column, Board } from "../types";
 
 export const getTodosGroupedByColumn = async () => {
   const data = await databases.listDocuments(

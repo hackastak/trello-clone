@@ -4,19 +4,19 @@ interface Board {
   columns: Map<TypedColumn, Column>;
 }
 
-type TypedColumn = "todo" | "in-progress" | "done";
+type TypedColumn = "todo" | "inprogress" | "done";
 
 interface Column {
   id: TypedColumn;
   todos: Todo[];
 }
 
-interface Todo extends Models.Document{
+interface Todo {
   $id: string;
   $createdAt: string;
   title: string;
   status: TypedColumn;
-  iamge?: string;
+  image?: string;
 }
 
 interface Image {
