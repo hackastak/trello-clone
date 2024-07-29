@@ -1,9 +1,11 @@
+"use client";
 
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import { TypedColumn, Todo } from "../types";
 import TodoCard from "@/components/TodoCard";
 import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import { useBoardStore } from "@/store/BoardStore";
+import { useModalStore } from "@/store/ModalStore";
 
 type Props = {
   id: TypedColumn;
@@ -21,6 +23,7 @@ const idToColumnText: {
 
 const Column = ({ id, todos, index }: Props) => {
   const [searchString] = useBoardStore((state) => [state.searchString]);
+  const [openModal] = useModalStore((state) => [state.openModal]);
 
 
   return (
@@ -67,7 +70,7 @@ const Column = ({ id, todos, index }: Props) => {
 
                   {provided.placeholder}
                   <div className="flex items-end justify-end p-2">
-                    <button className="text-green-500 hover:text-green-600">
+                    <button className="text-green-500 hover:text-green-600" onClick={openModal}>
                       <PlusCircleIcon className="h-10 w-10" />
                     </button>
                   </div>

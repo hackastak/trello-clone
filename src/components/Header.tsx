@@ -1,20 +1,32 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
 import Avatar from "react-avatar";
 import { useBoardStore } from "@/store/BoardStore";
-import { useEffect } from "react";
+import fetchSuggestion from "@/lib/fetchSuggestion";
 
 function Header() {
-  const [searchString, setSearchString] = useBoardStore((state) => [
+  const [board, searchString, setSearchString] = useBoardStore((state) => [
+    state.board,
     state.searchString,
-    state.setSearchString
+    state.setSearchString,
   ]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [suggestion, setSuggestion] = useState<string>("");
 
   useEffect(() => {
-    console.log("SEARCH FOR THIS: ", searchString);
-  }, [searchString, setSearchString]);
+    if (board.columns.size === 0) return;
+    setLoading(true);
+    const fetchSuggestionFunc = async () => {
+      const suggestion = await fetchSuggestion(board);
+      setSuggestion(suggestion);
+      setLoading(false);
+    }
+
+    fetchSuggestionFunc();
+  }, [board]);
 
   return (
     <header>
@@ -36,19 +48,26 @@ function Header() {
               placeholder="Search"
               className="flex-1 outline-none p-2"
               value={searchString}
-              onChange={e => setSearchString(e.target.value)}
+              onChange={(e) => setSearchString(e.target.value)}
             />
             <button type="submit" hidden>
               Search
             </button>
           </form>
-          <Avatar name="Hunter Wiginton" size="50px" round={true} color="#0055D1" />
+          <Avatar
+            name="Hunter Wiginton"
+            size="50px"
+            round={true}
+            color="#0055D1"
+          />
         </div>
       </div>
       <div className="flex items-center justify-center px-5 py-2 md:py-5">
         <p className="flex items-center text-sm font-light p-5 pr-5 shadow-xl rounded-xl w-fit bg-white italic max-w-3xl text-[#0055D1]">
-          <UserCircleIcon className="inline-block h-10 w-10 text-[#0055D1] mr-1" />
-          GPT is summarising your tasks for the day...
+          <UserCircleIcon className={`inline-block h-10 w-10 text-[#0055D1] mr-1 ${loading && "animate-spin"}`} />
+          {suggestion && !loading
+            ? suggestion
+            : "GPT is summarising your tasks for the day..."}
         </p>
       </div>
     </header>
