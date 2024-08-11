@@ -3,7 +3,7 @@
 import { DraggableProvidedDraggableProps, DraggableProvidedDragHandleProps } from "@hello-pangea/dnd";
 import { Todo, TypedColumn } from "@/types";
 import { useBoardStore } from "@/store/BoardStore";
-import { XCircleIcon } from "@heroicons/react/16/solid";
+import { TrashIcon } from "@heroicons/react/16/solid";
 
 type Props = {
   todo: Todo;
@@ -26,7 +26,7 @@ function TodoCard({ todo, index, id, innerRef, draggableProps, dragHandleProps }
       <div className="flex justify-between">
         <p>{todo.title}</p>
         <button className="text-red-500 hover:text-red-700" onClick={() => deleteTask(index, todo, id)}>
-          <XCircleIcon className="ml-5 h-8 w-8" />
+          <TrashIcon className="ml-5 h-6 w-6" />
         </button>
       </div>
     </div>

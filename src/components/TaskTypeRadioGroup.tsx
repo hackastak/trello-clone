@@ -45,7 +45,7 @@ const TaskTypeRadioGroup = () => {
                   </div>
 
                 </div>
-                <CheckCircleIcon className="size-6 fill-white opacity-0 transition group-data-[checked]:opacity-100" />
+                <CheckCircleIcon className="size-6 fill-green-600 opacity-0 transition group-data-[checked]:opacity-100" />
               </div>
             </Radio>
           ))}
@@ -54,4 +54,5 @@ const TaskTypeRadioGroup = () => {
     </div>
   );
 };
-  export default TaskTypeRadioGroup;
+
+export default TaskTypeRadioGroup;

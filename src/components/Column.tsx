@@ -3,7 +3,7 @@
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import { TypedColumn, Todo } from "../types";
 import TodoCard from "@/components/TodoCard";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
+import { PlusIcon } from "@heroicons/react/16/solid";
 import { useBoardStore } from "@/store/BoardStore";
 import { useModalStore } from "@/store/ModalStore";
 
@@ -69,9 +69,9 @@ const Column = ({ id, todos, index }: Props) => {
                   )})}
 
                   {provided.placeholder}
-                  <div className="flex items-end justify-end p-2">
-                    <button className="text-green-500 hover:text-green-600" onClick={openModal}>
-                      <PlusCircleIcon className="h-10 w-10" />
+                  <div className="flex">
+                    <button className="flex justify-center items-center w-full mt-6 rounded-lg bg-green-400 text-white hover:bg-green-500" onClick={openModal}>
+                      <PlusIcon className="h-10 w-10" />
                     </button>
                   </div>
 
