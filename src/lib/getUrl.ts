@@ -1,9 +1,8 @@
 import { storage } from "@/appwrite";
 import { Image } from "@/types";
 
-const getUrl = async (image: Image) => {
-  const url = storage.getFilePreview(image.bucketId, image.fileId);
+export const getUrl = async (image: Image) => {
+  const imageBucketId = process.env.NEXT_PUBLIC_STORAGE_BUCKET!;
+  const url = storage.getFilePreview(imageBucketId, image.fileId);
   return url;
 }
-
-export default getUrl;

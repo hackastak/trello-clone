@@ -118,7 +118,7 @@ export const useBoardStore = create<BoardState>((set, get) => ({
     set({ board: { columns: newColumns } });
 
     if (todo.image) {
-      await storage.deleteFile(todo.image.bucketId, todo.image.fileId);
+      await storage.deleteFile(process.env.NEXT_PUBLIC_STORAGE_BUCKET!, todo.image.fileId);
     }
 
     await databases.deleteDocument(

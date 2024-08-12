@@ -7,6 +7,12 @@ const nextConfig = {
         hostname: "links.papareact.com",
         port: "",
         pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cloud.appwrite.io",
+        port: "",
+        pathname: "/**",
       }
     ]
   }
